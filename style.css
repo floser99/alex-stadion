@@ -9,6 +9,10 @@
   --accent-dark: #a70f15;
   --green: #16634a;
   --shadow: 0 18px 40px rgba(23, 32, 26, 0.12);
+  --glass: rgba(255, 255, 255, 0.68);
+  --glass-strong: rgba(255, 255, 255, 0.78);
+  --glass-line: rgba(255, 255, 255, 0.56);
+  --glass-shadow: 0 20px 48px rgba(23, 32, 26, 0.16);
 }
 
 * {
@@ -40,6 +44,105 @@ input {
   min-width: 0;
 }
 
+.topbar {
+  position: fixed;
+  top: 18px;
+  left: 476px;
+  right: 18px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 8px 10px 8px 12px;
+  border: 1px solid var(--glass-line);
+  border-radius: 999px;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 10px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.brand span:last-child {
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+}
+
+.brand strong {
+  line-height: 1;
+}
+
+.brand small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.topnav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(238, 242, 237, 0.64);
+}
+
+.topnav-link,
+.login-button {
+  display: inline-grid;
+  min-height: 38px;
+  align-items: center;
+  border-radius: 999px;
+  font-weight: 900;
+}
+
+.topnav-link {
+  padding: 0 13px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.topnav-link.is-active,
+.topnav-link:hover {
+  background: var(--glass-strong);
+  color: var(--ink);
+}
+
+.login-button {
+  padding: 0 16px;
+  border: 0;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: #2b362f;
+}
+
 .app-shell {
   position: relative;
   min-height: 100vh;
@@ -57,10 +160,11 @@ input {
   gap: 10px;
   width: min(440px, calc(100vw - 36px));
   padding: 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
   border-radius: 18px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(18px) saturate(1.2);
   overflow: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
@@ -92,7 +196,7 @@ input {
   padding: 0 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: #f7f8f6;
+  background: rgba(247, 248, 246, 0.66);
   color: var(--green);
   font-size: 0.78rem;
   font-weight: 900;
@@ -103,9 +207,9 @@ input {
   display: grid;
   gap: 10px;
   padding: 12px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(217, 223, 216, 0.58);
   border-radius: 14px;
-  background: rgba(249, 250, 248, 0.86);
+  background: rgba(255, 255, 255, 0.46);
 }
 
 .filter-drawer summary {
@@ -176,9 +280,9 @@ h1 {
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   padding: 4px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(217, 223, 216, 0.58);
   border-radius: 999px;
-  background: #eef2ed;
+  background: rgba(238, 242, 237, 0.64);
 }
 
 .league-button {
@@ -193,7 +297,7 @@ h1 {
 
 .league-button:hover,
 .league-button.is-active {
-  background: #fff;
+  background: var(--glass-strong);
   color: var(--ink);
   box-shadow: 0 4px 12px rgba(23, 32, 26, 0.08);
 }
@@ -228,7 +332,7 @@ h1 {
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: #fff;
+  background: var(--glass-strong);
   color: var(--ink);
 }
 
@@ -249,7 +353,7 @@ h1 {
   overflow: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #fff;
+  background: var(--glass-strong);
   box-shadow: var(--shadow);
 }
 
@@ -267,7 +371,7 @@ h1 {
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.74);
   color: var(--ink);
   cursor: pointer;
   font: inherit;
@@ -334,7 +438,7 @@ h1 {
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: #fff;
+  background: var(--glass-strong);
   color: var(--ink);
 }
 
@@ -380,7 +484,7 @@ h1 {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #f9faf8;
+  background: rgba(255, 255, 255, 0.68);
 }
 
 .match-card header {
@@ -432,7 +536,7 @@ h1 {
   padding: 10px 12px;
   border: 0;
   border-radius: 10px;
-  background: #f2f5f1;
+  background: rgba(242, 245, 241, 0.62);
 }
 
 .location-label {
@@ -470,13 +574,13 @@ h1 {
 }
 
 .ghost-button {
-  background: #f7f8f6;
+  background: rgba(247, 248, 246, 0.72);
   color: var(--ink);
   border-color: var(--line);
 }
 
 .ghost-button:hover {
-  background: #eef2ed;
+  background: rgba(238, 242, 237, 0.82);
 }
 
 .control {
@@ -518,9 +622,9 @@ input[type="range"] {
   grid-template-columns: 1fr 1fr;
   gap: 4px;
   padding: 4px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(217, 223, 216, 0.58);
   border-radius: 999px;
-  background: #eef2ed;
+  background: rgba(238, 242, 237, 0.64);
 }
 
 .result-tab {
@@ -534,7 +638,7 @@ input[type="range"] {
 }
 
 .result-tab.is-active {
-  background: #fff;
+  background: var(--glass-strong);
   color: var(--ink);
   box-shadow: 0 4px 12px rgba(23, 32, 26, 0.08);
 }
@@ -573,7 +677,7 @@ input[type="range"] {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.72);
   cursor: pointer;
   transition:
     border-color 160ms ease,
@@ -682,7 +786,7 @@ input[type="range"] {
 }
 
 .leaflet-top {
-  top: 18px;
+  top: 90px;
 }
 
 .leaflet-control-zoom {
@@ -902,6 +1006,18 @@ input[type="range"] {
 }
 
 @media (max-width: 900px) {
+  .topbar {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    min-height: 56px;
+  }
+
+  .topnav {
+    display: none;
+  }
+
   .app-shell {
     min-height: 100vh;
   }
@@ -930,6 +1046,14 @@ input[type="range"] {
 }
 
 @media (max-width: 520px) {
+  .brand small {
+    display: none;
+  }
+
+  .login-button {
+    padding: 0 14px;
+  }
+
   .panel {
     padding: 14px;
   }
