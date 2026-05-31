@@ -25,14 +25,16 @@ http://localhost:5173
 - Fahrzeit-Demo: OSRM Demo-API `https://router.project-osrm.org`
 - Stadion-Geodaten: `data/venue-mapping.json`
 - Manuell pflegbare Stadiondetails: `data/stadium-details.json`
-- Manuell pflegbare Spieldaten: `data/matches.json`
+- Live-Spieldaten: OpenLigaDB `getmatchdata/{league}/{season}`
+- Fallback-Spieldaten: `data/matches.json`
 
 ## Datenquellen und Hinweise
 
 - Die 56 Teams kommen live aus OpenLigaDB.
 - Stadionnamen, Kapazitaeten und Koordinaten bleiben lokal, weil OpenLigaDB diese Daten nicht vollstaendig als Venue-Geodaten liefert.
 - Der Liga-Filter kann alle Teams, nur 1. Liga, nur 2. Liga oder nur 3. Liga anzeigen.
-- Die Datumsauswahl filtert die lokal gepflegten Spiele ab dem gewaehlten Datum.
+- Die Datumsauswahl filtert die live geladenen Spiele ab dem gewaehlten Datum.
+- `data/matches.json` wird nur genutzt, wenn OpenLigaDB nicht erreichbar ist.
 - Die Stadiondetails zeigen Adresse, Verein, Kapazitaet, Website, Ticketshop und kommende Spiele.
 - OpenLigaDB ist als kostenlose Ergebnis-/Ligadaten-API geeignet und liefert Teams ohne API-Key.
 - Die Fahrzeiten werden testweise ueber die oeffentliche OSRM Demo-API fuer maximal fuenf nahe Stadien geladen.

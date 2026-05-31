@@ -95,14 +95,14 @@ async function init() {
   try {
     elements.dateInput.value = state.selectedDate;
     setStatus("Teams werden aus OpenLigaDB geladen...");
-    const [leagueTeamGroups, venues, details, matches] = await Promise.all([
+    const [leagueTeamGroups, venues, details, openLigaMatches] = await Promise.all([
       Promise.all(LEAGUES.map(fetchOpenLigaTeams)),
       fetchVenueMapping(),
       fetchStadiumDetails(),
-      fetchMatches(),
+      fetchOpenLigaMatches(),
     ]);
     state.stadiums = mergeTeamsWithVenues(leagueTeamGroups.flat(), venues, details);
-    state.matches = matches;
+    state.matches = normalizeOpenLigaMatches(openLigaMatches, state.stadiums);
     addMarkers();
     render();
     fitAllStadiums();
@@ -159,6 +159,79 @@ async function fetchMatches() {
   const matches = await response.json();
   if (!Array.isArray(matches)) return [];
   return matches;
+}
+
+async function fetchOpenLigaMatches() {
+  try {
+    const leagueMatches = await Promise.all(
+      LEAGUES.map(async (league) => {
+        const response = await fetch(
+          `https://api.openligadb.de/getmatchdata/${league.code}/${OPENLIGADB_SEASON}`,
+        );
+        if (!response.ok) {
+          throw new Error(`${league.label} Spielplan konnte nicht geladen werden.`);
+        }
+        const matches = await response.json();
+        return Array.isArray(matches) ? matches : [];
+      }),
+    );
+
+    return leagueMatches.flat();
+  } catch (error) {
+    console.warn("Live-Spielplan nicht erreichbar, lokale Spieldaten werden genutzt.", error);
+    return fetchMatches();
+  }
+}
+
+function normalizeOpenLigaMatches(matches, stadiums) {
+  const stadiumByClub = new Map();
+  stadiums.forEach((stadium) => {
+    [stadium.club, stadium.shortName].forEach((name) => {
+      const normalized = normalizeName(name);
+      if (normalized) stadiumByClub.set(normalized, stadium);
+    });
+  });
+
+  return matches
+    .map((match) => {
+      if (match.date && match.homeClub && match.stadium) return match;
+
+      const homeClub = match.team1?.teamName || "";
+      const stadium = stadiumByClub.get(normalizeName(homeClub));
+      const matchDate = parseOpenLigaDate(match.matchDateTime || match.matchDateTimeUTC);
+      if (!stadium || !matchDate) return null;
+
+      return {
+        id: String(match.matchID),
+        date: matchDate.date,
+        time: matchDate.time,
+        competition: match.group?.groupName || match.leagueName || "Ligaspiel",
+        homeClub,
+        awayClub: match.team2?.teamName || "",
+        stadium: stadium.stadium,
+        ticketUrl: stadium.ticketUrl || "",
+        status: match.matchIsFinished ? "beendet" : "geplant",
+        leagueCode: match.leagueShortcut || stadium.leagueCode,
+      };
+    })
+    .filter(Boolean);
+}
+
+function parseOpenLigaDate(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return {
+    date: `${year}-${month}-${day}`,
+    time: `${hours}:${minutes}`,
+  };
 }
 
 function mergeTeamsWithVenues(teams, venues, details) {
