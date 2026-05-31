@@ -1,0 +1,970 @@
+[
+  {
+    "id": "allianz-arena",
+    "stadium": "Allianz Arena",
+    "city": "München",
+    "address": "Werner-Heisenberg-Allee 25, 80939 Muenchen",
+    "capacity": 75024,
+    "lat": 48.2188,
+    "lng": 11.6247,
+    "teamNames": [
+      "FC Bayern München",
+      "Bayern München",
+      "Bayern",
+      "FC Bayern Munchen"
+    ],
+    "websiteUrl": "https://allianz-arena.com",
+    "ticketUrl": "https://fcbayern.com/tickets",
+    "imageUrl": "",
+    "notes": "Manuell gepflegter Datensatz mit Ticketshop, Website und Adresse."
+  },
+  {
+    "id": "signal-iduna-park",
+    "stadium": "Signal Iduna Park",
+    "city": "Dortmund",
+    "address": "Strobelallee 50, 44139 Dortmund",
+    "capacity": 81365,
+    "lat": 51.4926,
+    "lng": 7.4519,
+    "teamNames": [
+      "Borussia Dortmund"
+    ],
+    "websiteUrl": "https://www.bvb.de",
+    "ticketUrl": "https://www.bvb.de/tickets",
+    "imageUrl": "",
+    "notes": "Groesse, Links und Hinweise koennen spaeter im Adminbereich bearbeitet werden."
+  },
+  {
+    "id": "bayarena",
+    "stadium": "BayArena",
+    "city": "Leverkusen",
+    "address": "",
+    "capacity": 30210,
+    "lat": 51.0382,
+    "lng": 7.0023,
+    "teamNames": [
+      "Bayer 04 Leverkusen",
+      "Bayer Leverkusen"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "mhparena",
+    "stadium": "MHPArena",
+    "city": "Stuttgart",
+    "address": "",
+    "capacity": 60058,
+    "lat": 48.7922,
+    "lng": 9.232,
+    "teamNames": [
+      "VfB Stuttgart"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "deutsche-bank-park",
+    "stadium": "Deutsche Bank Park",
+    "city": "Frankfurt am Main",
+    "address": "",
+    "capacity": 58000,
+    "lat": 50.0686,
+    "lng": 8.6454,
+    "teamNames": [
+      "Eintracht Frankfurt"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "volksparkstadion",
+    "stadium": "Volksparkstadion",
+    "city": "Hamburg",
+    "address": "Sylvesterallee 7, 22525 Hamburg",
+    "capacity": 57000,
+    "lat": 53.5872,
+    "lng": 9.8986,
+    "teamNames": [
+      "Hamburger SV",
+      "Hamburg"
+    ],
+    "websiteUrl": "https://www.hsv.de",
+    "ticketUrl": "https://www.hsv.de/tickets",
+    "imageUrl": "",
+    "notes": "Ticketshop, Verein und Stadiondaten sind getrennt vom Spielplan pflegbar."
+  },
+  {
+    "id": "borussia-park",
+    "stadium": "Borussia-Park",
+    "city": "Mönchengladbach",
+    "address": "",
+    "capacity": 54042,
+    "lat": 51.1746,
+    "lng": 6.3855,
+    "teamNames": [
+      "Borussia Mönchengladbach",
+      "Mönchengladbach",
+      "Gladbach",
+      "Borussia Monchengladbach"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "rheinenergiestadion",
+    "stadium": "RheinEnergieStadion",
+    "city": "Köln",
+    "address": "Aachener Strasse 999, 50933 Koeln",
+    "capacity": 50000,
+    "lat": 50.9335,
+    "lng": 6.8751,
+    "teamNames": [
+      "1. FC Köln",
+      "Köln",
+      "Koln",
+      "1. FC Koln"
+    ],
+    "websiteUrl": "https://www.rheinenergiestadion.de",
+    "ticketUrl": "https://fc.de/tickets",
+    "imageUrl": "",
+    "notes": "Beispieldaten fuer eine Stadiondetailseite."
+  },
+  {
+    "id": "red-bull-arena",
+    "stadium": "Red Bull Arena",
+    "city": "Leipzig",
+    "address": "",
+    "capacity": 47800,
+    "lat": 51.3458,
+    "lng": 12.3483,
+    "teamNames": [
+      "RB Leipzig"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "weserstadion",
+    "stadium": "Weserstadion",
+    "city": "Bremen",
+    "address": "",
+    "capacity": 42100,
+    "lat": 53.0664,
+    "lng": 8.8377,
+    "teamNames": [
+      "SV Werder Bremen",
+      "Werder Bremen"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "europa-park-stadion",
+    "stadium": "Europa-Park Stadion",
+    "city": "Freiburg im Breisgau",
+    "address": "",
+    "capacity": 34700,
+    "lat": 48.0217,
+    "lng": 7.8303,
+    "teamNames": [
+      "SC Freiburg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "mewa-arena",
+    "stadium": "MEWA Arena",
+    "city": "Mainz",
+    "address": "",
+    "capacity": 33305,
+    "lat": 49.9841,
+    "lng": 8.2242,
+    "teamNames": [
+      "1. FSV Mainz 05",
+      "Mainz 05"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "wwk-arena",
+    "stadium": "WWK Arena",
+    "city": "Augsburg",
+    "address": "",
+    "capacity": 30660,
+    "lat": 48.3231,
+    "lng": 10.886,
+    "teamNames": [
+      "FC Augsburg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "prezero-arena",
+    "stadium": "PreZero Arena",
+    "city": "Sinsheim",
+    "address": "",
+    "capacity": 30150,
+    "lat": 49.2387,
+    "lng": 8.8872,
+    "teamNames": [
+      "TSG 1899 Hoffenheim",
+      "TSG Hoffenheim"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "millerntor-stadion",
+    "stadium": "Millerntor-Stadion",
+    "city": "Hamburg",
+    "address": "",
+    "capacity": 29546,
+    "lat": 53.5546,
+    "lng": 9.9676,
+    "teamNames": [
+      "FC St. Pauli",
+      "St. Pauli"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "volkswagen-arena",
+    "stadium": "Volkswagen Arena",
+    "city": "Wolfsburg",
+    "address": "",
+    "capacity": 28917,
+    "lat": 52.4327,
+    "lng": 10.8038,
+    "teamNames": [
+      "VfL Wolfsburg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "stadion-an-der-alten-forsterei",
+    "stadium": "Stadion An der Alten Försterei",
+    "city": "Berlin",
+    "address": "",
+    "capacity": 22012,
+    "lat": 52.4576,
+    "lng": 13.5681,
+    "teamNames": [
+      "1. FC Union Berlin",
+      "Union Berlin"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "voith-arena",
+    "stadium": "Voith-Arena",
+    "city": "Heidenheim an der Brenz",
+    "address": "",
+    "capacity": 15000,
+    "lat": 48.6686,
+    "lng": 10.1392,
+    "teamNames": [
+      "1. FC Heidenheim 1846",
+      "Heidenheim"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "fritz-walter-stadion",
+    "stadium": "Fritz-Walter-Stadion",
+    "city": "Kaiserslautern",
+    "address": "",
+    "capacity": 49780,
+    "lat": 49.4348,
+    "lng": 7.7768,
+    "teamNames": [
+      "1. FC Kaiserslautern",
+      "Kaiserslautern"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "avnet-arena",
+    "stadium": "Avnet Arena",
+    "city": "Magdeburg",
+    "address": "",
+    "capacity": 30098,
+    "lat": 52.1257,
+    "lng": 11.6712,
+    "teamNames": [
+      "1. FC Magdeburg",
+      "Magdeburg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "max-morlock-stadion",
+    "stadium": "Max-Morlock-Stadion",
+    "city": "Nürnberg",
+    "address": "",
+    "capacity": 50000,
+    "lat": 49.4263,
+    "lng": 11.1257,
+    "teamNames": [
+      "1. FC Nürnberg",
+      "Nürnberg",
+      "Nurnberg",
+      "1. FC Nurnberg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "schucoarena",
+    "stadium": "SchücoArena",
+    "city": "Bielefeld",
+    "address": "",
+    "capacity": 26515,
+    "lat": 52.0311,
+    "lng": 8.5176,
+    "teamNames": [
+      "DSC Arminia Bielefeld",
+      "Arminia Bielefeld",
+      "Bielefeld"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "rudolf-harbig-stadion",
+    "stadium": "Rudolf-Harbig-Stadion",
+    "city": "Dresden",
+    "address": "",
+    "capacity": 32066,
+    "lat": 51.0409,
+    "lng": 13.7478,
+    "teamNames": [
+      "Dynamo Dresden",
+      "Dresden"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "eintracht-stadion",
+    "stadium": "Eintracht-Stadion",
+    "city": "Braunschweig",
+    "address": "",
+    "capacity": 23325,
+    "lat": 52.2907,
+    "lng": 10.521,
+    "teamNames": [
+      "Eintracht Braunschweig",
+      "Braunschweig"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "veltins-arena",
+    "stadium": "Veltins-Arena",
+    "city": "Gelsenkirchen",
+    "address": "Arenaring 1, 45891 Gelsenkirchen",
+    "capacity": 62271,
+    "lat": 51.5546,
+    "lng": 7.0676,
+    "teamNames": [
+      "FC Schalke 04",
+      "Schalke"
+    ],
+    "websiteUrl": "https://veltins-arena.de",
+    "ticketUrl": "https://schalke04.de/tickets",
+    "imageUrl": "",
+    "notes": "Beispiel fuer eine manuell gepflegte Stadionuebersicht."
+  },
+  {
+    "id": "merkur-spiel-arena",
+    "stadium": "Merkur Spiel-Arena",
+    "city": "Düsseldorf",
+    "address": "",
+    "capacity": 54600,
+    "lat": 51.2618,
+    "lng": 6.7331,
+    "teamNames": [
+      "Fortuna Düsseldorf",
+      "Düsseldorf",
+      "Fortuna Dusseldorf",
+      "Dusseldorf"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "heinz-von-heiden-arena",
+    "stadium": "Heinz von Heiden Arena",
+    "city": "Hannover",
+    "address": "",
+    "capacity": 49000,
+    "lat": 52.36,
+    "lng": 9.7311,
+    "teamNames": [
+      "Hannover 96",
+      "Hannover"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "olympiastadion-berlin",
+    "stadium": "Olympiastadion Berlin",
+    "city": "Berlin",
+    "address": "Olympischer Platz 3, 14053 Berlin",
+    "capacity": 74649,
+    "lat": 52.5147,
+    "lng": 13.2394,
+    "teamNames": [
+      "Hertha BSC",
+      "Hertha"
+    ],
+    "websiteUrl": "https://olympiastadion.berlin",
+    "ticketUrl": "https://www.herthabsc.com/tickets",
+    "imageUrl": "",
+    "notes": "Detaildaten werden lokal gepflegt und mit den Live-Teams verknuepft."
+  },
+  {
+    "id": "holstein-stadion",
+    "stadium": "Holstein-Stadion",
+    "city": "Kiel",
+    "address": "",
+    "capacity": 15034,
+    "lat": 54.3497,
+    "lng": 10.1241,
+    "teamNames": [
+      "Holstein Kiel",
+      "Kiel"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "bbbank-wildpark",
+    "stadium": "BBBank Wildpark",
+    "city": "Karlsruhe",
+    "address": "",
+    "capacity": 34302,
+    "lat": 49.0206,
+    "lng": 8.4131,
+    "teamNames": [
+      "Karlsruher SC",
+      "Karlsruhe"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "preu-enstadion",
+    "stadium": "Preußenstadion",
+    "city": "Münster",
+    "address": "",
+    "capacity": 12754,
+    "lat": 51.9246,
+    "lng": 7.6247,
+    "teamNames": [
+      "Preußen Münster",
+      "Münster",
+      "Preussen Munster",
+      "Munster"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "home-deluxe-arena",
+    "stadium": "Home Deluxe Arena",
+    "city": "Paderborn",
+    "address": "",
+    "capacity": 15000,
+    "lat": 51.7217,
+    "lng": 8.7556,
+    "teamNames": [
+      "SC Paderborn 07",
+      "Paderborn"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "sportpark-ronhof-thomas-sommer",
+    "stadium": "Sportpark Ronhof Thomas Sommer",
+    "city": "Fürth",
+    "address": "",
+    "capacity": 16626,
+    "lat": 49.4862,
+    "lng": 10.999,
+    "teamNames": [
+      "SpVgg Greuther Fürth",
+      "Greuther Fürth",
+      "Fürth",
+      "Greuther Furth",
+      "Furth"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "ursapharm-arena-an-der-kaiserlinde",
+    "stadium": "Ursapharm-Arena an der Kaiserlinde",
+    "city": "Spiesen-Elversberg",
+    "address": "",
+    "capacity": 10000,
+    "lat": 49.3186,
+    "lng": 7.1131,
+    "teamNames": [
+      "SV 07 Elversberg",
+      "Elversberg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "merck-stadion-am-bollenfalltor",
+    "stadium": "Merck-Stadion am Böllenfalltor",
+    "city": "Darmstadt",
+    "address": "",
+    "capacity": 17810,
+    "lat": 49.8581,
+    "lng": 8.672,
+    "teamNames": [
+      "SV Darmstadt 98",
+      "Darmstadt"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "vonovia-ruhrstadion",
+    "stadium": "Vonovia Ruhrstadion",
+    "city": "Bochum",
+    "address": "",
+    "capacity": 27599,
+    "lat": 51.4899,
+    "lng": 7.2364,
+    "teamNames": [
+      "VfL Bochum",
+      "Bochum"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "ludwigsparkstadion",
+    "stadium": "Ludwigsparkstadion",
+    "city": "Saarbrücken",
+    "address": "",
+    "capacity": 16003,
+    "lat": 49.2503,
+    "lng": 6.984,
+    "teamNames": [
+      "1. FC Saarbrücken",
+      "Saarbrücken",
+      "1. FC Saarbrucken",
+      "Saarbrucken"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "sachs-stadion",
+    "stadium": "Sachs-Stadion",
+    "city": "Schweinfurt",
+    "address": "",
+    "capacity": 15060,
+    "lat": 50.0458,
+    "lng": 10.2036,
+    "teamNames": [
+      "1. FC Schweinfurt 05",
+      "Schweinfurt"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "tivoli",
+    "stadium": "Tivoli",
+    "city": "Aachen",
+    "address": "",
+    "capacity": 32960,
+    "lat": 50.7932,
+    "lng": 6.0981,
+    "teamNames": [
+      "Alemannia Aachen",
+      "Aachen"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "leag-energie-stadion",
+    "stadium": "LEAG Energie Stadion",
+    "city": "Cottbus",
+    "address": "",
+    "capacity": 22528,
+    "lat": 51.7519,
+    "lng": 14.3452,
+    "teamNames": [
+      "Energie Cottbus",
+      "Cottbus"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "erzgebirgsstadion",
+    "stadium": "Erzgebirgsstadion",
+    "city": "Aue-Bad Schlema",
+    "address": "",
+    "capacity": 16485,
+    "lat": 50.5907,
+    "lng": 12.7117,
+    "teamNames": [
+      "Erzgebirge Aue",
+      "Aue"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "audi-sportpark",
+    "stadium": "Audi Sportpark",
+    "city": "Ingolstadt",
+    "address": "",
+    "capacity": 15800,
+    "lat": 48.7444,
+    "lng": 11.4856,
+    "teamNames": [
+      "FC Ingolstadt 04",
+      "Ingolstadt"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "ostseestadion",
+    "stadium": "Ostseestadion",
+    "city": "Rostock",
+    "address": "",
+    "capacity": 29000,
+    "lat": 54.0845,
+    "lng": 12.0952,
+    "teamNames": [
+      "Hansa Rostock",
+      "Rostock"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "jahnstadion-regensburg",
+    "stadium": "Jahnstadion Regensburg",
+    "city": "Regensburg",
+    "address": "",
+    "capacity": 15210,
+    "lat": 49.021,
+    "lng": 12.1082,
+    "teamNames": [
+      "Jahn Regensburg",
+      "Regensburg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "schauinsland-reisen-arena",
+    "stadium": "Schauinsland-Reisen-Arena",
+    "city": "Duisburg",
+    "address": "",
+    "capacity": 31500,
+    "lat": 51.4094,
+    "lng": 6.7788,
+    "teamNames": [
+      "MSV Duisburg",
+      "Duisburg"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "stadion-an-der-hafenstra-e",
+    "stadium": "Stadion an der Hafenstraße",
+    "city": "Essen",
+    "address": "",
+    "capacity": 20650,
+    "lat": 51.4869,
+    "lng": 7.0108,
+    "teamNames": [
+      "Rot-Weiss Essen",
+      "Rot-Weiß Essen",
+      "Essen"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "sportclub-arena",
+    "stadium": "Sportclub Arena",
+    "city": "Verl",
+    "address": "",
+    "capacity": 5001,
+    "lat": 51.8842,
+    "lng": 8.5197,
+    "teamNames": [
+      "SC Verl",
+      "Verl"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "donaustadion",
+    "stadium": "Donaustadion",
+    "city": "Ulm",
+    "address": "",
+    "capacity": 19500,
+    "lat": 48.4091,
+    "lng": 10.0108,
+    "teamNames": [
+      "SSV Ulm 1846",
+      "Ulm"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "carl-benz-stadion",
+    "stadium": "Carl-Benz-Stadion",
+    "city": "Mannheim",
+    "address": "",
+    "capacity": 25589,
+    "lat": 49.4792,
+    "lng": 8.5039,
+    "teamNames": [
+      "SV Waldhof Mannheim",
+      "Mannheim"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "brita-arena",
+    "stadium": "Brita-Arena",
+    "city": "Wiesbaden",
+    "address": "",
+    "capacity": 12566,
+    "lat": 50.071,
+    "lng": 8.2576,
+    "teamNames": [
+      "SV Wehen Wiesbaden",
+      "Wiesbaden"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "dietmar-hopp-stadion",
+    "stadium": "Dietmar-Hopp-Stadion",
+    "city": "Sinsheim",
+    "address": "",
+    "capacity": 6350,
+    "lat": 49.2397,
+    "lng": 8.8796,
+    "teamNames": [
+      "TSG 1899 Hoffenheim II",
+      "Hoffenheim II",
+      "TSG Hoffenheim II"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "stadtisches-stadion-an-der-grunwalder-stra-e",
+    "stadium": "Städtisches Stadion an der Grünwalder Straße",
+    "city": "München",
+    "address": "",
+    "capacity": 15000,
+    "lat": 48.1029,
+    "lng": 11.573,
+    "teamNames": [
+      "TSV 1860 München",
+      "1860 München",
+      "1860 Munchen"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "wilhelm-langrehr-stadion",
+    "stadium": "Wilhelm-Langrehr-Stadion",
+    "city": "Garbsen",
+    "address": "",
+    "capacity": 3500,
+    "lat": 52.421,
+    "lng": 9.608,
+    "teamNames": [
+      "TSV Havelse",
+      "Havelse"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "gazi-stadion-auf-der-waldau",
+    "stadium": "Gazi-Stadion auf der Waldau",
+    "city": "Stuttgart",
+    "address": "",
+    "capacity": 11410,
+    "lat": 48.7554,
+    "lng": 9.188,
+    "teamNames": [
+      "VfB Stuttgart II",
+      "Stuttgart II"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "bremer-brucke",
+    "stadium": "Bremer Brücke",
+    "city": "Osnabrück",
+    "address": "",
+    "capacity": 16000,
+    "lat": 52.2874,
+    "lng": 8.0659,
+    "teamNames": [
+      "VfL Osnabrück",
+      "Osnabrück",
+      "VfL Osnabruck",
+      "Osnabruck"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  },
+  {
+    "id": "sportpark-hohenberg",
+    "stadium": "Sportpark Höhenberg",
+    "city": "Köln",
+    "address": "",
+    "capacity": 10001,
+    "lat": 50.9423,
+    "lng": 7.03,
+    "teamNames": [
+      "Viktoria Köln",
+      "Viktoria Koln"
+    ],
+    "websiteUrl": "",
+    "ticketUrl": "",
+    "imageUrl": "",
+    "notes": "Noch kein manueller Detailtext gepflegt."
+  }
+]

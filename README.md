@@ -23,15 +23,15 @@ http://localhost:5173
 - Teams: OpenLigaDB `bl1`, `bl2`, `bl3` ueber `https://api.openligadb.de/getavailableteams/{league}/2025`
 - Standort: Browser Geolocation API, keine serverseitige Speicherung
 - Fahrzeit-Demo: OSRM Demo-API `https://router.project-osrm.org`
-- Stadion-Geodaten: `data/venue-mapping.json`
-- Manuell pflegbare Stadiondetails: `data/stadium-details.json`
+- Zentrale Stadiondaten: `data/stadiums.json`
+- Legacy-Daten: `data/venue-mapping.json` und `data/stadium-details.json`
 - Live-Spieldaten: OpenLigaDB `getmatchdata/{league}/{season}`
 - Fallback-Spieldaten: `data/matches.json`
 
 ## Datenquellen und Hinweise
 
 - Die 56 Teams kommen live aus OpenLigaDB.
-- Stadionnamen, Kapazitaeten und Koordinaten bleiben lokal, weil OpenLigaDB diese Daten nicht vollstaendig als Venue-Geodaten liefert.
+- Stadionnamen, Kapazitaeten, Koordinaten, Adressen und Links werden zentral in `data/stadiums.json` gepflegt, weil OpenLigaDB diese Daten nicht vollstaendig liefert.
 - Der Liga-Filter kann alle Teams, nur 1. Liga, nur 2. Liga oder nur 3. Liga anzeigen.
 - Die Datumsauswahl filtert die live geladenen Spiele ab dem gewaehlten Datum.
 - `data/matches.json` wird nur genutzt, wenn OpenLigaDB nicht erreichbar ist.

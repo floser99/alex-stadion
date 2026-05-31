@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stadion-Kachel enthaelt · Stadionradar</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="docs-page">
+    <header class="topbar docs-topbar" aria-label="Hauptnavigation">
+      <a class="brand" href="index.html" aria-label="Stadionradar Start">
+        <span class="brand-mark">SR</span>
+        <span>
+          <strong>Stadionradar</strong>
+          <small>2025/26</small>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="Navigation">
+        <a class="topnav-link" href="index.html">Karte</a>
+        <a class="topnav-link is-active" href="stadion-kachel.html">Stadion-Kachel enthält</a>
+        <a class="topnav-link" href="#">Favoriten</a>
+      </nav>
+      <button class="login-button" type="button">Login</button>
+    </header>
+
+    <main class="docs-shell">
+      <section class="docs-panel">
+        <p class="eyebrow">Design-Entscheidung</p>
+        <h1>Stadion-Kachel enthält</h1>
+        <p class="intro">
+          Die Kachel bleibt bewusst kompakt. Alles, was nicht direkt bei der Auswahl hilft, wandert in die Detailansicht.
+        </p>
+
+        <div class="docs-grid">
+          <article class="docs-card">
+            <h2>Pflichtinhalt</h2>
+            <ul class="check-list">
+              <li>Stadionname</li>
+              <li>Verein</li>
+              <li>Stadt</li>
+              <li>Liga-Badge</li>
+              <li>Entfernung, sobald ein Standort gesetzt ist</li>
+              <li>Nächstes Spiel, wenn vorhanden</li>
+              <li>Aktionen: Details und Tickets</li>
+            </ul>
+          </article>
+
+          <article class="docs-card">
+            <h2>Nicht in der Kachel</h2>
+            <ul class="check-list muted-list">
+              <li>vollständige Adresse</li>
+              <li>Website-Link</li>
+              <li>Kapazität als Hauptinformation</li>
+              <li>lange Beschreibung</li>
+              <li>mehrere kommende Spiele</li>
+            </ul>
+          </article>
+        </div>
+
+        <section class="example-section">
+          <div class="section-heading">
+            <h2>Beispiel</h2>
+          </div>
+
+          <article class="stadium-card example-card">
+            <header>
+              <div class="club-line">
+                <h2>RheinEnergieStadion</h2>
+                <div class="meta">1. FC Köln</div>
+              </div>
+              <span class="distance">4,2 km</span>
+            </header>
+            <div class="meta">
+              <span class="league-badge">1. Liga</span>
+              <span>Köln</span>
+            </div>
+            <div class="route-meta">Nächstes Spiel: 13.06., 15:30 · 1. FC Köln - Borussia Dortmund</div>
+            <div class="card-actions">
+              <button class="small-button" type="button">Details</button>
+              <a class="text-link" href="#">Tickets</a>
+            </div>
+          </article>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

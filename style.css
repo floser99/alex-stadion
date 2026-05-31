@@ -35,6 +35,15 @@ body {
     sans-serif;
 }
 
+body.docs-page {
+  min-height: 100%;
+  overflow: auto;
+  background:
+    linear-gradient(rgba(244, 246, 242, 0.72), rgba(244, 246, 242, 0.86)),
+    url("https://tile.openstreetmap.org/6/33/21.png");
+  background-size: 512px 512px;
+}
+
 button,
 input {
   font: inherit;
@@ -123,6 +132,7 @@ input {
   padding: 0 13px;
   color: var(--muted);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .topnav-link.is-active,
@@ -147,6 +157,91 @@ input {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+}
+
+.docs-topbar {
+  left: 18px;
+}
+
+.docs-shell {
+  display: grid;
+  min-height: 100vh;
+  padding: 104px 18px 48px;
+  place-items: start center;
+}
+
+.docs-panel {
+  display: grid;
+  width: min(920px, 100%);
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--glass-line);
+  border-radius: 24px;
+  background: var(--glass);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+
+.docs-panel h1 {
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.docs-card,
+.example-section {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(217, 223, 216, 0.58);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.docs-card h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.check-list {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink);
+}
+
+.check-list li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.check-list li::before {
+  position: absolute;
+  left: 0;
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-top: 0.55em;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.muted-list {
+  color: var(--muted);
+}
+
+.muted-list li::before {
+  background: var(--muted);
+}
+
+.example-card {
+  max-width: 440px;
 }
 
 .panel {
@@ -1016,6 +1111,21 @@ input[type="range"] {
 
   .topnav {
     display: none;
+  }
+
+  .docs-topbar {
+    top: 12px;
+    bottom: auto;
+    left: 12px;
+  }
+
+  .docs-shell {
+    padding-top: 92px;
+    padding-bottom: 24px;
+  }
+
+  .docs-grid {
+    grid-template-columns: 1fr;
   }
 
   .app-shell {

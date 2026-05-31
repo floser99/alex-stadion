@@ -95,13 +95,12 @@ async function init() {
   try {
     elements.dateInput.value = state.selectedDate;
     setStatus("Teams werden aus OpenLigaDB geladen...");
-    const [leagueTeamGroups, venues, details, openLigaMatches] = await Promise.all([
+    const [leagueTeamGroups, stadiumData, openLigaMatches] = await Promise.all([
       Promise.all(LEAGUES.map(fetchOpenLigaTeams)),
-      fetchVenueMapping(),
-      fetchStadiumDetails(),
+      fetchStadiumData(),
       fetchOpenLigaMatches(),
     ]);
-    state.stadiums = mergeTeamsWithVenues(leagueTeamGroups.flat(), venues, details);
+    state.stadiums = mergeTeamsWithStadiums(leagueTeamGroups.flat(), stadiumData);
     state.matches = normalizeOpenLigaMatches(openLigaMatches, state.stadiums);
     addMarkers();
     render();
@@ -132,19 +131,10 @@ async function fetchOpenLigaTeams(league) {
   }));
 }
 
-async function fetchVenueMapping() {
-  const response = await fetch("data/venue-mapping.json");
+async function fetchStadiumData() {
+  const response = await fetch("data/stadiums.json");
   if (!response.ok) {
-    throw new Error("Lokale Stadion-Geodaten konnten nicht geladen werden.");
-  }
-
-  return response.json();
-}
-
-async function fetchStadiumDetails() {
-  const response = await fetch("data/stadium-details.json");
-  if (!response.ok) {
-    throw new Error("Lokale Stadiondetails konnten nicht geladen werden.");
+    throw new Error("Lokale Stadiondaten konnten nicht geladen werden.");
   }
 
   return response.json();
@@ -234,28 +224,22 @@ function parseOpenLigaDate(value) {
   };
 }
 
-function mergeTeamsWithVenues(teams, venues, details) {
-  const venueByTeam = new Map();
-  const detailByStadium = new Map(
-    details.map((detail) => [normalizeName(detail.stadium), detail]),
-  );
+function mergeTeamsWithStadiums(teams, stadiumData) {
+  const stadiumByTeam = new Map();
 
-  venues.forEach((venue) => {
-    venue.teamNames.forEach((teamName) => {
-      venueByTeam.set(normalizeName(teamName), venue);
+  stadiumData.forEach((stadium) => {
+    stadium.teamNames.forEach((teamName) => {
+      stadiumByTeam.set(normalizeName(teamName), stadium);
     });
   });
 
   return teams
     .map((team) => {
-      const venue =
-        venueByTeam.get(normalizeName(team.teamName)) ||
-        venueByTeam.get(normalizeName(team.shortName));
+      const stadium =
+        stadiumByTeam.get(normalizeName(team.teamName)) ||
+        stadiumByTeam.get(normalizeName(team.shortName));
 
-      if (!venue) return null;
-
-      const detail = detailByStadium.get(normalizeName(venue.stadium)) || {};
-
+      if (!stadium) return null;
       return {
         teamId: team.teamId,
         club: team.teamName,
@@ -263,16 +247,16 @@ function mergeTeamsWithVenues(teams, venues, details) {
         leagueCode: team.leagueCode,
         leagueLabel: team.leagueLabel,
         leagueApiName: team.leagueApiName,
-        stadium: venue.stadium,
-        city: venue.city,
-        capacity: venue.capacity,
-        lat: venue.lat,
-        lng: venue.lng,
-        address: detail.address || "",
-        websiteUrl: detail.websiteUrl || "",
-        ticketUrl: detail.ticketUrl || "",
-        imageUrl: detail.imageUrl || "",
-        notes: detail.notes || "Noch kein manueller Detailtext gepflegt.",
+        stadium: stadium.stadium,
+        city: stadium.city,
+        capacity: stadium.capacity,
+        lat: stadium.lat,
+        lng: stadium.lng,
+        address: stadium.address || "",
+        websiteUrl: stadium.websiteUrl || "",
+        ticketUrl: stadium.ticketUrl || "",
+        imageUrl: stadium.imageUrl || "",
+        notes: stadium.notes || "Noch kein manueller Detailtext gepflegt.",
       };
     })
     .filter(Boolean);
