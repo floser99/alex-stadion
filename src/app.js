@@ -718,12 +718,43 @@ function applyAddressResult(result) {
 }
 
 async function geocodeAddress(query) {
+  const queryVariants = createAddressQueryVariants(query);
+
+  for (const variant of queryVariants) {
+    const results = await searchNominatim(variant, 5);
+    if (results.length > 0) return results[0];
+  }
+
+  throw new Error("Keine passende Adresse gefunden.");
+}
+
+async function fetchAddressSuggestions(query) {
+  const queryVariants = createAddressQueryVariants(query).slice(0, 2);
+  const remoteResults = [];
+
+  for (const variant of queryVariants) {
+    const results = await searchNominatim(variant, SUGGESTION_LIMIT);
+    remoteResults.push(...results);
+  }
+
+  return remoteResults.map((suggestion) => ({
+    ...suggestion,
+    kind: "address",
+    label: primaryPlaceLabel(suggestion.display_name),
+    detail: secondaryPlaceLabel(suggestion.display_name),
+  }));
+}
+
+async function searchNominatim(query, limit) {
   const params = new URLSearchParams({
     q: query,
     format: "jsonv2",
-    limit: "1",
+    limit: String(limit),
     countrycodes: "de",
-    addressdetails: "0",
+    addressdetails: "1",
+    namedetails: "1",
+    dedupe: "1",
+    "accept-language": "de",
   });
   const response = await fetch(`${NOMINATIM_SEARCH_URL}?${params.toString()}`, {
     headers: {
@@ -736,39 +767,36 @@ async function geocodeAddress(query) {
   }
 
   const results = await response.json();
-  if (!Array.isArray(results) || results.length === 0) {
-    throw new Error("Keine passende Adresse gefunden.");
-  }
+  if (!Array.isArray(results)) return [];
 
-  return results[0];
+  return results.filter(
+    (result) => Number.isFinite(Number(result.lat)) && Number.isFinite(Number(result.lon)),
+  );
 }
 
-async function fetchAddressSuggestions(query) {
-  const params = new URLSearchParams({
-    q: query,
-    format: "jsonv2",
-    limit: String(SUGGESTION_LIMIT),
-    countrycodes: "de",
-    addressdetails: "0",
-  });
-  const response = await fetch(`${NOMINATIM_SEARCH_URL}?${params.toString()}`, {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+function createAddressQueryVariants(query) {
+  const trimmed = String(query || "").trim().replace(/\s+/g, " ");
+  if (!trimmed) return [];
 
-  if (!response.ok) {
-    throw new Error("Adressvorschläge sind gerade nicht erreichbar.");
+  const variants = new Set([trimmed]);
+  const lower = trimmed.toLowerCase();
+
+  if (!/\bdeutschland\b/i.test(trimmed)) {
+    variants.add(`${trimmed}, Deutschland`);
   }
 
-  const suggestions = await response.json();
-  if (!Array.isArray(suggestions)) return [];
-  return suggestions.map((suggestion) => ({
-    ...suggestion,
-    kind: "address",
-    label: primaryPlaceLabel(suggestion.display_name),
-    detail: secondaryPlaceLabel(suggestion.display_name),
-  }));
+  [
+    trimmed.replace(/\bstr\./gi, "Straße"),
+    trimmed.replace(/\bstr\b/gi, "Straße"),
+    trimmed.replace(/\bstrasse\b/gi, "Straße"),
+    trimmed.replace(/\bstraße\b/gi, "Strasse"),
+  ].forEach((variant) => {
+    if (!variant || variant.toLowerCase() === lower) return;
+    variants.add(variant);
+    if (!/\bdeutschland\b/i.test(variant)) variants.add(`${variant}, Deutschland`);
+  });
+
+  return Array.from(variants).slice(0, 6);
 }
 
 function handleAddressInput() {

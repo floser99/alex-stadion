@@ -109,6 +109,10 @@ input {
 }
 
 .filter-drawer summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   cursor: pointer;
   color: var(--ink);
   font-size: 1rem;
@@ -121,11 +125,18 @@ input {
 }
 
 .filter-drawer summary::after {
-  content: "Anpassen";
-  float: right;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 850;
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.filter-drawer[open] summary::after {
+  transform: rotate(225deg);
 }
 
 .filter-drawer[open] summary {
