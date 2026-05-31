@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bundesliga-Stadien in deiner Nähe</title>
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="preconnect" href="https://tile.openstreetmap.org" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel" aria-label="Stadiensuche">
+        <div class="title-block">
+          <p class="eyebrow">Bundesliga, 2. Bundesliga, 3. Liga 2025/26</p>
+          <h1>Stadien in deiner Nähe</h1>
+          <p class="intro">
+            Nutzt deinen Browser-Standort und zeigt die nächstgelegenen Bundesliga-Stadien auf einer OpenStreetMap-Karte.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button id="locateButton" class="primary-button" type="button">Standort verwenden</button>
+          <button id="resetButton" class="ghost-button" type="button">Deutschland anzeigen</button>
+        </div>
+
+        <div class="league-filter" role="group" aria-label="Liga auswählen">
+          <button class="league-button is-active" type="button" data-league="all">Alle</button>
+          <button class="league-button" type="button" data-league="bl1">1. Liga</button>
+          <button class="league-button" type="button" data-league="bl2">2. Liga</button>
+          <button class="league-button" type="button" data-league="bl3">3. Liga</button>
+        </div>
+
+        <form id="addressForm" class="address-form" role="search">
+          <label for="addressInput">Adresse oder Stadt</label>
+          <div class="address-row">
+            <input
+              id="addressInput"
+              name="address"
+              type="search"
+              autocomplete="street-address"
+              aria-autocomplete="list"
+              aria-controls="addressSuggestions"
+              aria-expanded="false"
+              placeholder="z. B. Köln, Hohenzollernring 1"
+            />
+            <div id="addressSuggestions" class="suggestions" role="listbox"></div>
+            <button class="ghost-button" type="submit">Suchen</button>
+          </div>
+        </form>
+
+        <div class="location-panel" aria-live="polite">
+          <span class="location-label">Aktueller Standort</span>
+          <strong id="currentLocation">Noch nicht gesetzt</strong>
+        </div>
+
+        <label class="control">
+          <span>Radius: <strong id="radiusLabel">250 km</strong></span>
+          <input id="radiusInput" type="range" min="25" max="700" step="25" value="250" />
+        </label>
+
+        <div id="status" class="status" role="status">
+          Standort noch nicht aktiv. Die Liste ist alphabetisch sortiert.
+        </div>
+
+        <ol id="stadiumList" class="stadium-list" aria-label="Bundesliga-Stadien"></ol>
+      </section>
+
+      <section class="map-wrap" aria-label="Karte mit Stadien">
+        <div id="map"></div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
