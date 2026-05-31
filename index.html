@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bundesliga-Stadien in deiner Nähe</title>
+    <title>Bundesliga-Stadien in deiner Naehe</title>
     <link rel="preconnect" href="https://unpkg.com" />
     <link rel="preconnect" href="https://tile.openstreetmap.org" />
     <link
@@ -17,65 +17,92 @@
   <body>
     <main class="app-shell">
       <section class="panel" aria-label="Stadiensuche">
-        <div class="title-block">
-          <p class="eyebrow">Bundesliga, 2. Bundesliga, 3. Liga 2025/26</p>
-          <h1>Stadien in deiner Nähe</h1>
-          <p class="intro">
-            Nutzt deinen Browser-Standort und zeigt die nächstgelegenen Bundesliga-Stadien auf einer OpenStreetMap-Karte.
-          </p>
-        </div>
-
-        <div class="actions">
-          <button id="locateButton" class="primary-button" type="button">Standort verwenden</button>
-          <button id="resetButton" class="ghost-button" type="button">Deutschland anzeigen</button>
-        </div>
-
-        <div class="league-filter" role="group" aria-label="Liga auswählen">
-          <button class="league-button is-active" type="button" data-league="all">Alle</button>
-          <button class="league-button" type="button" data-league="bl1">1. Liga</button>
-          <button class="league-button" type="button" data-league="bl2">2. Liga</button>
-          <button class="league-button" type="button" data-league="bl3">3. Liga</button>
-        </div>
-
-        <form id="addressForm" class="address-form" role="search">
-          <label for="addressInput">Adresse oder Stadt</label>
-          <div class="address-row">
-            <input
-              id="addressInput"
-              name="address"
-              type="search"
-              autocomplete="street-address"
-              aria-autocomplete="list"
-              aria-controls="addressSuggestions"
-              aria-expanded="false"
-              placeholder="z. B. Köln, Hohenzollernring 1"
-            />
-            <div id="addressSuggestions" class="suggestions" role="listbox"></div>
-            <button class="ghost-button" type="submit">Suchen</button>
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Saison 2025/26</p>
+            <h1>Stadien</h1>
           </div>
-        </form>
-
-        <div class="location-panel" aria-live="polite">
-          <span class="location-label">Aktueller Standort</span>
-          <strong id="currentLocation">Noch nicht gesetzt</strong>
+          <span class="panel-badge">Karte</span>
         </div>
 
-        <label class="control">
-          <span>Radius: <strong id="radiusLabel">250 km</strong></span>
-          <input id="radiusInput" type="range" min="25" max="700" step="25" value="250" />
-        </label>
+        <section class="search-block" aria-label="Ort suchen">
+          <form id="addressForm" class="address-form" role="search">
+            <label for="addressInput">Wo willst du suchen?</label>
+            <div class="address-row">
+              <input
+                id="addressInput"
+                name="address"
+                type="search"
+                autocomplete="street-address"
+                aria-autocomplete="list"
+                aria-controls="addressSuggestions"
+                aria-expanded="false"
+                placeholder="z. B. Koeln, BVB, Allianz Arena"
+              />
+              <div id="addressSuggestions" class="suggestions" role="listbox"></div>
+              <button class="ghost-button" type="submit">Suchen</button>
+            </div>
+          </form>
 
-        <div id="status" class="status" role="status">
-          Standort noch nicht aktiv. Die Liste ist alphabetisch sortiert.
+          <div class="actions">
+            <button id="locateButton" class="primary-button" type="button">Meinen Standort</button>
+            <button id="resetButton" class="ghost-button" type="button">Deutschland</button>
+          </div>
+
+          <div class="location-panel" aria-live="polite">
+            <span class="location-label">Ausgangspunkt</span>
+            <strong id="currentLocation">Noch nicht gesetzt</strong>
+          </div>
+        </section>
+
+        <details class="filter-drawer">
+          <summary>Filter</summary>
+          <div class="league-filter" role="group" aria-label="Liga auswaehlen">
+            <button class="league-button is-active" type="button" data-league="all">Alle</button>
+            <button class="league-button" type="button" data-league="bl1">1. Liga</button>
+            <button class="league-button" type="button" data-league="bl2">2. Liga</button>
+            <button class="league-button" type="button" data-league="bl3">3. Liga</button>
+          </div>
+
+          <div class="filter-grid">
+            <div class="date-panel">
+              <label for="dateInput">Spiele ab</label>
+              <div class="date-row">
+                <input id="dateInput" type="date" />
+                <button id="todayButton" class="ghost-button" type="button">Heute</button>
+              </div>
+            </div>
+
+            <label class="control">
+              <span>Radius <strong id="radiusLabel">250 km</strong></span>
+              <input id="radiusInput" type="range" min="25" max="700" step="25" value="250" />
+            </label>
+          </div>
+        </details>
+
+        <div class="result-tabs" role="tablist" aria-label="Ergebnisse">
+          <button class="result-tab is-active" type="button" data-view="stadiums">Stadien <span id="stadiumCount">0</span></button>
+          <button class="result-tab" type="button" data-view="matches">Spiele <span id="matchCount">0</span></button>
         </div>
 
-        <ol id="stadiumList" class="stadium-list" aria-label="Bundesliga-Stadien"></ol>
+        <section class="match-section result-panel" data-panel="matches" aria-label="Kommende Spiele">
+          <ol id="matchList" class="match-list"></ol>
+        </section>
+
+        <section class="result-panel is-active" data-panel="stadiums" aria-label="Stadien">
+          <ol id="stadiumList" class="stadium-list" aria-label="Bundesliga-Stadien"></ol>
+        </section>
       </section>
 
       <section class="map-wrap" aria-label="Karte mit Stadien">
         <div id="map"></div>
       </section>
     </main>
+
+    <aside id="stadiumDetail" class="detail-drawer" aria-live="polite" aria-label="Stadiondetails">
+      <button id="closeDetailButton" class="detail-close" type="button" aria-label="Details schliessen">&times;</button>
+      <div id="stadiumDetailContent"></div>
+    </aside>
 
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"

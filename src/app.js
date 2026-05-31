@@ -17,7 +17,9 @@ const SUGGESTION_DEBOUNCE_MS = 350;
 
 const state = {
   stadiums: [],
+  matches: [],
   selectedLeague: "all",
+  selectedDate: todayIsoDate(),
   userLocation: null,
   radiusKm: 250,
   suggestions: [],
@@ -37,12 +39,22 @@ const elements = {
   addressForm: document.querySelector("#addressForm"),
   addressInput: document.querySelector("#addressInput"),
   addressSuggestions: document.querySelector("#addressSuggestions"),
+  dateInput: document.querySelector("#dateInput"),
+  todayButton: document.querySelector("#todayButton"),
   leagueButtons: document.querySelectorAll("[data-league]"),
   currentLocation: document.querySelector("#currentLocation"),
   radiusInput: document.querySelector("#radiusInput"),
   radiusLabel: document.querySelector("#radiusLabel"),
   status: document.querySelector("#status"),
   list: document.querySelector("#stadiumList"),
+  stadiumCount: document.querySelector("#stadiumCount"),
+  matchList: document.querySelector("#matchList"),
+  matchCount: document.querySelector("#matchCount"),
+  resultTabs: document.querySelectorAll("[data-view]"),
+  resultPanels: document.querySelectorAll("[data-panel]"),
+  stadiumDetail: document.querySelector("#stadiumDetail"),
+  stadiumDetailContent: document.querySelector("#stadiumDetailContent"),
+  closeDetailButton: document.querySelector("#closeDetailButton"),
 };
 
 const map = L.map("map", {
@@ -81,12 +93,16 @@ init();
 
 async function init() {
   try {
+    elements.dateInput.value = state.selectedDate;
     setStatus("Teams werden aus OpenLigaDB geladen...");
-    const [leagueTeamGroups, venues] = await Promise.all([
+    const [leagueTeamGroups, venues, details, matches] = await Promise.all([
       Promise.all(LEAGUES.map(fetchOpenLigaTeams)),
       fetchVenueMapping(),
+      fetchStadiumDetails(),
+      fetchMatches(),
     ]);
-    state.stadiums = mergeTeamsWithVenues(leagueTeamGroups.flat(), venues);
+    state.stadiums = mergeTeamsWithVenues(leagueTeamGroups.flat(), venues, details);
+    state.matches = matches;
     addMarkers();
     render();
     fitAllStadiums();
@@ -125,8 +141,32 @@ async function fetchVenueMapping() {
   return response.json();
 }
 
-function mergeTeamsWithVenues(teams, venues) {
+async function fetchStadiumDetails() {
+  const response = await fetch("data/stadium-details.json");
+  if (!response.ok) {
+    throw new Error("Lokale Stadiondetails konnten nicht geladen werden.");
+  }
+
+  return response.json();
+}
+
+async function fetchMatches() {
+  const response = await fetch("data/matches.json");
+  if (!response.ok) {
+    throw new Error("Lokale Spieldaten konnten nicht geladen werden.");
+  }
+
+  const matches = await response.json();
+  if (!Array.isArray(matches)) return [];
+  return matches;
+}
+
+function mergeTeamsWithVenues(teams, venues, details) {
   const venueByTeam = new Map();
+  const detailByStadium = new Map(
+    details.map((detail) => [normalizeName(detail.stadium), detail]),
+  );
+
   venues.forEach((venue) => {
     venue.teamNames.forEach((teamName) => {
       venueByTeam.set(normalizeName(teamName), venue);
@@ -141,6 +181,8 @@ function mergeTeamsWithVenues(teams, venues) {
 
       if (!venue) return null;
 
+      const detail = detailByStadium.get(normalizeName(venue.stadium)) || {};
+
       return {
         teamId: team.teamId,
         club: team.teamName,
@@ -153,6 +195,11 @@ function mergeTeamsWithVenues(teams, venues) {
         capacity: venue.capacity,
         lat: venue.lat,
         lng: venue.lng,
+        address: detail.address || "",
+        websiteUrl: detail.websiteUrl || "",
+        ticketUrl: detail.ticketUrl || "",
+        imageUrl: detail.imageUrl || "",
+        notes: detail.notes || "Noch kein manueller Detailtext gepflegt.",
       };
     })
     .filter(Boolean);
@@ -180,9 +227,19 @@ function addMarkers() {
 function render() {
   const stadiums = sortedStadiums();
   elements.list.replaceChildren(...stadiums.map(createStadiumItem));
+  updateStadiumCount(stadiums);
+  renderMatches(stadiums);
   updateMarkerVisibility(stadiums);
   updateRadiusUi();
   updateStatus(stadiums);
+}
+
+function updateStadiumCount(stadiums) {
+  if (!elements.stadiumCount) return;
+  const visibleCount = stadiums.filter(
+    (stadium) => stadium.distanceKm === null || stadium.distanceKm <= state.radiusKm,
+  ).length;
+  elements.stadiumCount.textContent = String(visibleCount);
 }
 
 function sortedStadiums() {
@@ -208,6 +265,7 @@ function createStadiumItem(stadium) {
   const isOutsideRadius =
     stadium.distanceKm !== null && stadium.distanceKm > state.radiusKm;
   const route = state.routes.get(stadium.stadium);
+  const nextMatch = nextMatchForStadium(stadium.stadium);
 
   const item = document.createElement("li");
   item.className = `stadium-card${isOutsideRadius ? " is-hidden" : ""}`;
@@ -225,10 +283,22 @@ function createStadiumItem(stadium) {
       <span>${escapeHtml(stadium.city)}</span>
       <span>${stadium.capacity.toLocaleString("de-DE")} Plätze</span>
     </div>
+    ${nextMatch ? `<div class="route-meta">Naechstes Spiel: ${formatMatchDate(nextMatch)} · ${escapeHtml(nextMatch.homeClub)} - ${escapeHtml(nextMatch.awayClub)}</div>` : ""}
     ${route ? `<div class="route-meta">Auto: ${formatDuration(route.durationSeconds)} · ${formatDrivingDistance(route.distanceMeters)}</div>` : ""}
+    <div class="card-actions">
+      <button class="small-button" type="button" data-action="details">Details</button>
+      ${stadium.ticketUrl ? `<a class="text-link" href="${escapeHtml(stadium.ticketUrl)}" target="_blank" rel="noreferrer">Tickets</a>` : ""}
+    </div>
   `;
 
   item.addEventListener("click", () => focusStadium(stadium));
+  item.querySelector("[data-action='details']")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openStadiumDetail(stadium);
+  });
+  item.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", (event) => event.stopPropagation());
+  });
   item.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -243,6 +313,126 @@ function focusStadium(stadium) {
   const marker = state.markers.get(stadium.stadium);
   map.setView([stadium.lat, stadium.lng], 13);
   marker?.openPopup();
+}
+
+function openStadiumDetail(stadium) {
+  const upcomingMatches = matchesForStadium(stadium.stadium).slice(0, 4);
+  elements.stadiumDetailContent.innerHTML = `
+    <article class="detail-content">
+      <div class="detail-hero">
+        <h2>${escapeHtml(stadium.stadium)}</h2>
+        <p>${escapeHtml(stadium.club)} · ${escapeHtml(stadium.city)}</p>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-row">
+          <span>Adresse</span>
+          <strong>${escapeHtml(stadium.address || `${stadium.city}, Deutschland`)}</strong>
+        </div>
+        <div class="detail-row">
+          <span>Kapazitaet</span>
+          <strong>${stadium.capacity.toLocaleString("de-DE")} Plaetze</strong>
+        </div>
+        <div class="detail-row">
+          <span>Liga</span>
+          <strong>${escapeHtml(stadium.leagueLabel)}</strong>
+        </div>
+        <div class="detail-row">
+          <span>Hinweis</span>
+          <strong>${escapeHtml(stadium.notes)}</strong>
+        </div>
+      </div>
+      <div class="detail-actions">
+        ${stadium.ticketUrl ? `<a href="${escapeHtml(stadium.ticketUrl)}" target="_blank" rel="noreferrer">Ticketshop</a>` : ""}
+        ${stadium.websiteUrl ? `<a href="${escapeHtml(stadium.websiteUrl)}" target="_blank" rel="noreferrer">Website</a>` : ""}
+        <a href="https://www.openstreetmap.org/?mlat=${stadium.lat}&mlon=${stadium.lng}#map=15/${stadium.lat}/${stadium.lng}" target="_blank" rel="noreferrer">Karte</a>
+      </div>
+      <section class="match-section">
+        <div class="section-heading">
+          <h2>Spiele im Stadion</h2>
+          <span>${upcomingMatches.length}</span>
+        </div>
+        <ol class="match-list">
+          ${upcomingMatches.length > 0 ? upcomingMatches.map(matchHtml).join("") : '<li class="match-card">Keine Spiele ab dem gewaehlten Datum gepflegt.</li>'}
+        </ol>
+      </section>
+    </article>
+  `;
+  elements.stadiumDetail.classList.add("is-open");
+}
+
+function closeStadiumDetail() {
+  elements.stadiumDetail.classList.remove("is-open");
+}
+
+function renderMatches(stadiums) {
+  const visibleStadiums = new Set(
+    stadiums
+      .filter((stadium) => stadium.distanceKm === null || stadium.distanceKm <= state.radiusKm)
+      .map((stadium) => normalizeName(stadium.stadium)),
+  );
+  const matches = filteredMatches()
+    .filter((match) => visibleStadiums.has(normalizeName(match.stadium)))
+    .slice(0, 5);
+
+  elements.matchCount.textContent = String(matches.length);
+  if (matches.length === 0) {
+    elements.matchList.innerHTML = '<li class="match-card">Keine passenden Spiele ab dem gewaehlten Datum gepflegt.</li>';
+    return;
+  }
+
+  elements.matchList.innerHTML = matches.map(matchHtml).join("");
+  elements.matchList.querySelectorAll("[data-stadium]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const stadium = state.stadiums.find(
+        (item) => normalizeName(item.stadium) === normalizeName(button.dataset.stadium),
+      );
+      if (!stadium) return;
+      focusStadium(stadium);
+      openStadiumDetail(stadium);
+    });
+  });
+}
+
+function matchHtml(match) {
+  return `
+    <li class="match-card">
+      <header>
+        <span class="match-title">${escapeHtml(match.homeClub)} - ${escapeHtml(match.awayClub)}</span>
+        <span class="match-date">${formatMatchDate(match)}</span>
+      </header>
+      <div class="match-meta">
+        <span>${escapeHtml(match.competition)}</span>
+        <span>${escapeHtml(match.stadium)}</span>
+        <span>${escapeHtml(match.status)}</span>
+      </div>
+      <div class="match-actions">
+        <button class="small-button" type="button" data-stadium="${escapeHtml(match.stadium)}">Stadion</button>
+        ${match.ticketUrl ? `<a class="text-link" href="${escapeHtml(match.ticketUrl)}" target="_blank" rel="noreferrer">Tickets</a>` : ""}
+      </div>
+    </li>
+  `;
+}
+
+function filteredMatches() {
+  const selectedDate = state.selectedDate || todayIsoDate();
+  const activeStadiums = new Set(
+    filteredStadiums().map((stadium) => normalizeName(stadium.stadium)),
+  );
+
+  return state.matches
+    .filter((match) => match.date >= selectedDate)
+    .filter((match) => activeStadiums.has(normalizeName(match.stadium)))
+    .sort((a, b) => `${a.date}T${a.time}`.localeCompare(`${b.date}T${b.time}`));
+}
+
+function matchesForStadium(stadiumName) {
+  return filteredMatches().filter(
+    (match) => normalizeName(match.stadium) === normalizeName(stadiumName),
+  );
+}
+
+function nextMatchForStadium(stadiumName) {
+  return matchesForStadium(stadiumName)[0] || null;
 }
 
 function updateMarkerVisibility(stadiums) {
@@ -275,7 +465,7 @@ function updateStatus(stadiums) {
   const leagueLabel = currentLeagueLabel();
 
   if (!state.userLocation) {
-    setStatus(`${stadiums.length} Teams (${leagueLabel}) aus OpenLigaDB geladen. Standort noch nicht aktiv.`);
+    setStatus(`${stadiums.length} Stadien · ${leagueLabel} · Standort noch nicht aktiv`);
     updateCurrentLocationLabel();
     return;
   }
@@ -286,7 +476,7 @@ function updateStatus(stadiums) {
   const nearest = stadiums[0];
 
   setStatus(
-    `${visibleCount} Stadien im Radius (${leagueLabel}). Am nächsten: ${nearest.stadium} (${formatDistance(nearest.distanceKm)}).`,
+    `${visibleCount} Stadien im Radius · ${leagueLabel} · am nächsten: ${nearest.stadium} (${formatDistance(nearest.distanceKm)})`,
   );
   updateCurrentLocationLabel();
 }
@@ -355,6 +545,7 @@ async function fetchDrivingRoute(stadium) {
 }
 
 function setStatus(message, isError = false) {
+  if (!elements.status) return;
   elements.status.textContent = message;
   elements.status.classList.toggle("is-error", isError);
 }
@@ -363,6 +554,10 @@ function popupHtml(stadium) {
   return `
     <p class="popup-title">${escapeHtml(stadium.stadium)}</p>
     <p class="popup-meta">${escapeHtml(stadium.club)} · ${escapeHtml(stadium.leagueLabel)}<br>${escapeHtml(stadium.city)}<br>${stadium.capacity.toLocaleString("de-DE")} Plätze</p>
+    <p class="popup-actions">
+      ${stadium.ticketUrl ? `<a class="text-link" href="${escapeHtml(stadium.ticketUrl)}" target="_blank" rel="noreferrer">Tickets</a>` : ""}
+      ${stadium.websiteUrl ? `<a class="text-link" href="${escapeHtml(stadium.websiteUrl)}" target="_blank" rel="noreferrer">Website</a>` : ""}
+    </p>
   `;
 }
 
@@ -379,6 +574,24 @@ function formatDistance(distanceKm) {
   if (distanceKm === null) return "Standort fehlt";
   if (distanceKm < 10) return `${distanceKm.toFixed(1).replace(".", ",")} km`;
   return `${Math.round(distanceKm)} km`;
+}
+
+function formatMatchDate(match) {
+  const date = new Date(`${match.date}T${match.time || "00:00"}`);
+  return new Intl.DateTimeFormat("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
+function todayIsoDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function formatDrivingDistance(distanceMeters) {
@@ -894,6 +1107,29 @@ elements.addressInput.addEventListener("input", handleAddressInput);
 elements.addressInput.addEventListener("keydown", handleAddressKeydown);
 elements.addressInput.addEventListener("blur", () => {
   window.setTimeout(closeSuggestions, 120);
+});
+elements.dateInput.addEventListener("change", (event) => {
+  state.selectedDate = event.target.value || todayIsoDate();
+  render();
+});
+elements.todayButton.addEventListener("click", () => {
+  state.selectedDate = todayIsoDate();
+  elements.dateInput.value = state.selectedDate;
+  render();
+});
+elements.closeDetailButton.addEventListener("click", closeStadiumDetail);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeStadiumDetail();
+});
+elements.resultTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    elements.resultTabs.forEach((tab) => {
+      tab.classList.toggle("is-active", tab.dataset.view === button.dataset.view);
+    });
+    elements.resultPanels.forEach((panel) => {
+      panel.classList.toggle("is-active", panel.dataset.panel === button.dataset.view);
+    });
+  });
 });
 elements.leagueButtons.forEach((button) => {
   button.addEventListener("click", () => selectLeague(button.dataset.league));

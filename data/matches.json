@@ -1,0 +1,57 @@
+[
+  {
+    "id": "demo-2026-06-13-001",
+    "date": "2026-06-13",
+    "time": "15:30",
+    "competition": "Sommer-Testspiel",
+    "homeClub": "1. FC Koeln",
+    "awayClub": "Borussia Dortmund",
+    "stadium": "RheinEnergieStadion",
+    "ticketUrl": "https://fc.de/tickets",
+    "status": "geplant"
+  },
+  {
+    "id": "demo-2026-06-20-001",
+    "date": "2026-06-20",
+    "time": "18:00",
+    "competition": "Sommer-Testspiel",
+    "homeClub": "Hamburger SV",
+    "awayClub": "Hertha BSC",
+    "stadium": "Volksparkstadion",
+    "ticketUrl": "https://www.hsv.de/tickets",
+    "status": "geplant"
+  },
+  {
+    "id": "demo-2026-06-27-001",
+    "date": "2026-06-27",
+    "time": "17:30",
+    "competition": "Sommer-Testspiel",
+    "homeClub": "FC Schalke 04",
+    "awayClub": "1. FC Kaiserslautern",
+    "stadium": "Veltins-Arena",
+    "ticketUrl": "https://schalke04.de/tickets",
+    "status": "geplant"
+  },
+  {
+    "id": "demo-2026-07-04-001",
+    "date": "2026-07-04",
+    "time": "19:00",
+    "competition": "Sommer-Testspiel",
+    "homeClub": "FC Bayern Muenchen",
+    "awayClub": "RB Leipzig",
+    "stadium": "Allianz Arena",
+    "ticketUrl": "https://fcbayern.com/tickets",
+    "status": "geplant"
+  },
+  {
+    "id": "demo-2026-07-11-001",
+    "date": "2026-07-11",
+    "time": "16:00",
+    "competition": "Sommer-Testspiel",
+    "homeClub": "Hertha BSC",
+    "awayClub": "Dynamo Dresden",
+    "stadium": "Olympiastadion Berlin",
+    "ticketUrl": "https://www.herthabsc.com/tickets",
+    "status": "geplant"
+  }
+]
